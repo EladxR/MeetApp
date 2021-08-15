@@ -16,7 +16,7 @@ const SignInScreen = ({ navigation }) => {
           <Text
             style={{ fontWeight: "bold", fontSize: 22, color: COLORS.dark }}
           >
-            FOX
+            meet
           </Text>
           <Text
             style={{
@@ -25,7 +25,7 @@ const SignInScreen = ({ navigation }) => {
               color: COLORS.secondary,
             }}
           >
-            HUB
+            App
           </Text>
         </View>
 
@@ -38,7 +38,7 @@ const SignInScreen = ({ navigation }) => {
           <Text
             style={{ fontSize: 19, fontWeight: "bold", color: COLORS.light }}
           >
-            Sign in to continue
+            Sign in to continuee
           </Text>
         </View>
 
