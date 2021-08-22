@@ -12,11 +12,11 @@ import LoadingScreen from "./app/src/views/screens/LoadingScreen";
 
 import * as firebase from "firebase";
 import { firebaseConfig } from "./config";
-if (!firebase.apps.length) {
+/*if (!firebase.apps.length) {
   firebase.initializeApp({});
 } else {
   firebase.app(); // if already initialized, use that one
-}
+}*/
 
 //const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
