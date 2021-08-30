@@ -15,6 +15,7 @@ import STYLES from "../../styles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
+import { withNavigation } from "react-navigation";
 
 class SignInScreen extends Component {
   state = {};
@@ -54,18 +55,16 @@ class SignInScreen extends Component {
             .signInWithCredential(credential)
             .then(function (result) {
               if (result.additionalUserInfo.isNewUser) {
+                console.log("creating database for user");
                 firebase
-                  .database(
-                    "https://meetapp-4ea81-default-rtdb.europe-west1.firebasedatabase.app"
-                  )
+                  .database()
                   .ref("/users/" + result.user.uid)
                   .set({
                     gmail: result.user.email,
-                    profile_picture:
-                      result.additionalUserInfo.profile.profile_picture,
+                    profile_picture: result.additionalUserInfo.profile.picture,
                     locale: result.additionalUserInfo.profile.locale,
-                    first_name: result.additionalUserInfo.profile.first_name,
-                    last_name: result.additionalUserInfo.profile.last_name,
+                    first_name: result.additionalUserInfo.profile.given_name,
+                    last_name: result.additionalUserInfo.profile.family_name,
                     created_at: Date.now(),
                   })
                   .then(function (snapshot) {});
@@ -91,6 +90,7 @@ class SignInScreen extends Component {
         } else {
           console.log("User already signed-in Firebase.");
         }
+        console.log("end database");
       }.bind(this)
     );
   };
@@ -99,9 +99,9 @@ class SignInScreen extends Component {
     try {
       const result = await Google.logInAsync({
         androidClientId:
-          "473314541276-bptost0h0kpqg10fja637dfdekj4uf22.apps.googleusercontent.com",
+          "187623108708-dkf3vbltft0la5cgj9om6rddd441fpt3.apps.googleusercontent.com",
         iosClientId:
-          "473314541276-ltpvmrkmfnh42kk139m43ed1v33u7njp.apps.googleusercontent.com",
+          "187623108708-53h37cnf70f25vuiieiicueu9nk98vfj.apps.googleusercontent.com",
         scopes: ["profile", "email"],
       });
 
@@ -239,7 +239,9 @@ class SignInScreen extends Component {
             <Text style={{ color: COLORS.light, fontWeight: "bold" }}>
               Don`t have an account ?
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("SignUp")}
+            >
               <Text style={{ color: COLORS.pink, fontWeight: "bold" }}>
                 Sign up
               </Text>

@@ -22,7 +22,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-screens": "^3.5.0",
-    "react-native-web": "^0.17.1"
+    "react-native-web": "^0.17.1",
+    "react-navigation": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
