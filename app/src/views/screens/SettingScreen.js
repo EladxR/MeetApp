@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-class FindScreen extends Component {
+class SettingScreen extends Component {
   state = {};
   render() {
     return (
       <View style={styles.container}>
-        <Text>Find</Text>
+        <Text>Setting</Text>
       </View>
     );
   }
 }
 
-export default FindScreen;
-
+export default SettingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

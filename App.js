@@ -8,7 +8,7 @@ import SignUpScreen from "./app/src/views/screens/SignUpScreen";
 import SignInScreen from "./app/src/views/screens/SignInScreen";
 import HomeScreen from "./app/src/views/screens/HomeScreen";
 import LoadingScreen from "./app/src/views/screens/LoadingScreen";
-
+import Tabs from "./app/src/views/screens/Tabs.js";
 import * as firebase from "firebase";
 import { firebaseConfig } from "./config";
 /*if (!firebase.apps.length) {
@@ -23,12 +23,13 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Loading" component={LoadingScreen} />
+      <Tabs />
+      {/* <Stack.Navigator>
+       <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+         <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
