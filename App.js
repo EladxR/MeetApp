@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { Component } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -20,18 +20,10 @@ import { firebaseConfig } from "./config";
 //const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tabs />
-      {/* <Stack.Navigator>
-       <Stack.Screen name="Loading" component={LoadingScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-         <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator> */}
-    </NavigationContainer>
-  );
+class App extends Component {
+  render() {
+    return <LoadingScreen />;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -42,3 +34,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default App;

@@ -9,30 +9,37 @@ import {
   StyleSheet,
 } from "react-native";
 import firebase from "firebase";
+import { StackActions } from "@react-navigation/native";
+import HomeScreen from "./HomeScreen";
+import SignInScreen from "./SignInScreen";
 
 class LoadingScreen extends Component {
+  state = {
+    isLoggedIn: false,
+  };
   componentDidMount() {
-    this.checkIfLoggedIn();
+    this.checkIfLoggedIn(this.props.navigation);
   }
-  checkIfLoggedIn = () => {
+  checkIfLoggedIn = (navigation) => {
     console.log("enter check log in");
     firebase.auth().onAuthStateChanged(
       function (user) {
         if (user) {
-          this.props.navigation.navigate("Home");
+          this.setState({ isLoggedIn: true });
         } else {
-          console.log("to sign in");
-          this.props.navigation.navigate("SignIn");
+          this.setState({ isLoggedIn: false });
         }
       }.bind(this)
     );
   };
   render() {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+    if (this.state.isLoggedIn) {
+      console.log("home");
+      return <HomeScreen />;
+    } else {
+      console.log("sign in");
+      return <SignInScreen />;
+    }
   }
 }
 

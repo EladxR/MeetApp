@@ -107,6 +107,7 @@ class SignInScreen extends Component {
 
       if (result.type === "success") {
         this.onSignIn(result);
+        this.props.OnLoggedIn();
         return result.accessToken;
       } else {
         return { cancelled: true };
