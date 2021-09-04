@@ -16,6 +16,7 @@ import SignInScreen from "./SignInScreen";
 class LoadingScreen extends Component {
   state = {
     isLoggedIn: false,
+    isLoading: true,
   };
   componentDidMount() {
     this.checkIfLoggedIn(this.props.navigation);
@@ -25,14 +26,22 @@ class LoadingScreen extends Component {
     firebase.auth().onAuthStateChanged(
       function (user) {
         if (user) {
-          this.setState({ isLoggedIn: true });
+          this.setState({ isLoggedIn: true, isLoading: false });
         } else {
-          this.setState({ isLoggedIn: false });
+          this.setState({ isLoggedIn: false, isLoading: false });
         }
       }.bind(this)
     );
   };
   render() {
+    if (this.state.isLoading) {
+      //show loading screen
+      return (
+        <View style={styles.container}>
+          <Text>Loading...</Text>
+        </View>
+      );
+    }
     if (this.state.isLoggedIn) {
       console.log("home");
       return <HomeScreen />;
