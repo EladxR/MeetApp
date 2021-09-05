@@ -63,11 +63,11 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff8dc",
+    backgroundColor: "#f8f8ff",
   },
   droidSafeArea: {
     flex: 1,
-    backgroundColor: "#fff8dc",
+    backgroundColor: "#f8f8ff",
     paddingTop: Platform.OS === "android" ? 45 : 0,
   },
   userInfoSection: {

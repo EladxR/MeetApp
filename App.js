@@ -22,7 +22,6 @@ const Stack = createStackNavigator();
 
 class App extends Component {
   render() {
-    //return <LoadingScreen />;
     return <SignInScreen />;
   }
 }

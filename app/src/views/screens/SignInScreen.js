@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   Image,
+  StyleSheet,
   TouchableHighlight,
   Button,
 } from "react-native";
@@ -16,10 +17,6 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import { withNavigation } from "react-navigation";
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from "@react-native-google-signin/google-signin";
 
 class SignInScreen extends Component {
   state = {};
@@ -125,45 +122,102 @@ class SignInScreen extends Component {
       <SafeAreaView
         style={{
           paddingHorizontal: 20,
-          paddingTop: 40,
+          paddingTop: 100,
           flex: 1,
           backgroundColor: COLORS.white,
         }}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ marginTop: 20 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <GoogleSigninButton
-                style={{ width: 192, height: 48 }}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={this._signIn}
-                disabled={this.state.isSigninInProgress}
-              />
+        <View style={styles.container}>
+          <Image
+            style={styles.logo}
+            source={require("../../assests/meetAppLogo.jpeg")}
+          />
 
-              <View style={{ width: 10 }}></View>
-              <TouchableOpacity onPress={() => this.signInWithGoogleAsync()}>
-                <View style={STYLES.btnSecondary}>
-                  <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                    Sign in with
-                  </Text>
-                  <Image
-                    style={STYLES.btnImage}
-                    source={require("../../assests/google.png")}
-                  />
-                </View>
-              </TouchableOpacity>
+          {/* <Button
+          title="Sign in with Google"
+          onPress={() => this.signInWithGoogleAsync()}
+        >
+          {/* <Image
+              style={STYLES.btnImage}
+              source={require("../../assests/google.png")}
+            /> */}
+
+          <TouchableHighlight
+            underlayColor="#E5E6EA"
+            style={{
+              fontFamily: "AktivGroteskCorp",
+              paddingLeft: 15,
+              paddingRight: 15,
+              borderRadius: 25.5,
+              flexDirection: "row",
+              justifyContent: "center",
+              marginBottom: 15,
+              width: 300,
+              height: 50,
+              alignItems: "center",
+              alignSelf: "center",
+              borderColor: "#E5E6EA",
+              borderWidth: 1,
+            }}
+            onPress={() => this.signInWithGoogleAsync()}
+          >
+            <View style={styles.button}>
+              <Image
+                style={styles.buttonImageIconStyle}
+                source={require("../../assests/google.png")}
+              />
+              <View style={styles.buttonIconSeparatorStyle} />
+              <Text style={styles.buttonTextStyle}>Sign in with Google</Text>
             </View>
-          </View>
-        </ScrollView>
+          </TouchableHighlight>
+        </View>
       </SafeAreaView>
     );
   }
 }
 
 export default SignInScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    width: 300,
+    height: 300,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: `#7b68ee`,
+    borderWidth: 0.5,
+    borderColor: "#fff",
+    height: 50,
+    width: 300,
+    borderRadius: 5,
+    margin: 5,
+    paddingLeft: 8,
+    justifyContent: "flex-start",
+  },
+  buttonImageIconStyle: {
+    padding: 3,
+    margin: 1,
+    height: 30,
+    width: 30,
+    resizeMode: "stretch",
+  },
+  buttonTextStyle: {
+    color: "#fff",
+    marginBottom: 4,
+    marginLeft: 40,
+    alignItems: "center",
+    fontSize: 15,
+  },
+  buttonIconSeparatorStyle: {
+    backgroundColor: "#fff",
+    width: 1,
+    height: 40,
+  },
+});
