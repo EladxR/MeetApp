@@ -16,11 +16,11 @@ class ProfileScreen extends Component {
     lastName: "",
     mail: "",
     profilePicture: "",
+    username: "@",
   };
   componentDidMount() {
     this.getUserData();
   }
-
   getUserData = () => {
     const userID = firebase.auth().currentUser.uid;
     console.log(userID);
@@ -33,6 +33,7 @@ class ProfileScreen extends Component {
           lastName: snapshot.val().last_name,
           mail: snapshot.val().gmail,
           profilePicture: snapshot.val().profile_picture,
+          username: snapshot.val().username,
         });
       });
   };
@@ -40,18 +41,19 @@ class ProfileScreen extends Component {
     return (
       <SafeAreaView style={styles.droidSafeArea}>
         <View style={styles.userInfoSection}>
-          <View>
+          <View style={{ flexDirection: "row", marginTop: 15 }}>
             <Avatar.Image
               style={styles.Image}
               source={{ uri: this.state.profilePicture }}
               size={80}
             />
-          </View>
-          <View>
-            <Title style={styles.title}>
-              {this.state.firstName + " " + this.state.lastName}
-            </Title>
-            <Caption style={styles.caption}>{this.state.mail}</Caption>
+
+            <View style={{ marginStart: 15 }}>
+              <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
+                {this.state.firstName + " " + this.state.lastName}
+              </Title>
+              <Caption style={styles.caption}>{this.state.username}</Caption>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   droidSafeArea: {
     flex: 1,
     backgroundColor: "#f8f8ff",
-    paddingTop: Platform.OS === "android" ? 45 : 0,
+    paddingTop: Platform.OS === "android" ? 55 : 0,
   },
   userInfoSection: {
     paddingHorizontal: 30,
