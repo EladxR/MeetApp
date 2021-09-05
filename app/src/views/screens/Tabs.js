@@ -1,19 +1,12 @@
 import React, { Component, Children } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-
 import FeedScreen from "../screens/FeedScreen";
 import FindScreen from "../screens/FindScreen";
 import PostScreen from "../screens/PostScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingScreen from "../screens/SettingScreen";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { NavigationContainer, useTheme } from "@react-navigation/native";
-import EditProfileScreen from "./EditProfileScreen";
-import Icon from "react-native-vector-icons/Ionicons";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
-const ProfileStack = createStackNavigator();
+import { NavigationContainer } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -181,7 +174,7 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileStackScreen}
+          component={ProfileScreen}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
@@ -232,57 +225,3 @@ const styles = StyleSheet.create({
 });
 
 export default Tabs;
-
-const ProfileStackScreen = ({ navigation }) => {
-  const { colors } = useTheme();
-
-  return (
-    <ProfileStack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: colors.background,
-          shadowColor: colors.background, // iOS
-          elevation: 0, // Android
-        },
-        headerTintColor: colors.text,
-      }}
-    >
-      <ProfileStack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          title: "",
-          headerLeft: () => (
-            <View style={{ marginLeft: 10 }}>
-              <Icon.Button
-                name="ios-menu"
-                size={25}
-                backgroundColor={colors.background}
-                color={colors.text}
-                onPress={() => navigation.openDrawer()}
-              />
-            </View>
-          ),
-          headerRight: () => (
-            <View style={{ marginRight: 10 }}>
-              <MaterialCommunityIcons.Button
-                name="account-edit"
-                size={25}
-                backgroundColor={colors.background}
-                color={colors.text}
-                onPress={() => navigation.navigate("EditProfile")}
-              />
-            </View>
-          ),
-        }}
-      />
-      <ProfileStack.Screen
-        name="EditProfile"
-        options={{
-          title: "Edit Profile",
-        }}
-        component={EditProfileScreen}
-      />
-    </ProfileStack.Navigator>
-  );
-};
