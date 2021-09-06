@@ -9,6 +9,7 @@ import {
 } from "react-native-paper";
 import firebase from "firebase";
 //import database from "@react-native-firebase/database";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class ProfileScreen extends Component {
   state = {
@@ -54,6 +55,26 @@ class ProfileScreen extends Component {
               </Title>
               <Caption style={styles.caption}>{this.state.username}</Caption>
             </View>
+          </View>
+        </View>
+        <View style={styles.userInfoSection}>
+          <View style={styles.row}>
+            <Icon name="map-marker-radius" color="#777777" size={20} />
+            <Text style={{ color: "#777777", marginLeft: 20 }}>
+              Kolkata, India
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Icon name="phone" color="#777777" size={20} />
+            <Text style={{ color: "#777777", marginLeft: 20 }}>
+              +91-900000009
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Icon name="email" color="#777777" size={20} />
+            <Text style={{ color: "#777777", marginLeft: 20 }}>
+              {this.state.mail}
+            </Text>
           </View>
         </View>
       </SafeAreaView>

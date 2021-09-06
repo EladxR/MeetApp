@@ -1,7 +1,9 @@
 import React, { Component, Children } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import FeedScreen from "../screens/FeedScreen";
 import FindScreen from "../screens/FindScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
 import PostScreen from "../screens/PostScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingScreen from "../screens/SettingScreen";
@@ -9,7 +11,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
-
+const ProfileStack = createStackNavigator();
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
@@ -174,7 +176,7 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={ProfileFunc}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
@@ -223,5 +225,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
 export default Tabs;
+
+function ProfileFunc() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} />
+    </ProfileStack.Navigator>
+  );
+}
