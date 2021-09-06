@@ -17,7 +17,6 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import * as Google from "expo-google-app-auth";
 import firebase from "firebase";
 import { withNavigation } from "react-navigation";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 class SignInScreen extends Component {
   state = {};
@@ -63,12 +62,6 @@ class SignInScreen extends Component {
                   .ref("/users/" + result.user.uid)
                   .set({
                     gmail: result.user.email,
-                    username:
-                      "@" +
-                      result.user.email.substr(
-                        0,
-                        result.user.email.indexOf("@")
-                      ),
                     profile_picture: result.additionalUserInfo.profile.picture,
                     locale: result.additionalUserInfo.profile.locale,
                     first_name: result.additionalUserInfo.profile.given_name,
@@ -131,7 +124,7 @@ class SignInScreen extends Component {
           paddingHorizontal: 20,
           paddingTop: 100,
           flex: 1,
-          backgroundColor: "#fffafa",
+          backgroundColor: COLORS.white,
         }}
       >
         <View style={styles.container}>
