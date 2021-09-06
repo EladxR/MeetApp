@@ -8,10 +8,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@material-ui/styles": "^4.11.4",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-firebase/app": "^12.6.1",
     "@react-native-firebase/database": "^12.7.5",
     "@react-navigation/bottom-tabs": "^6.0.3",
+    "@react-navigation/material-bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.4",
     "expo": "~42.0.1",
@@ -19,6 +21,7 @@
     "expo-google-sign-in": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "firebase": "8.2.3",
+    "material-ui": "^0.20.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -30,8 +33,7 @@
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4",
-    "undefined": "react-native-firebase/database"
+    "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

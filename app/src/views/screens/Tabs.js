@@ -9,9 +9,14 @@ import ProfileScreen from "../screens/ProfileScreen";
 import SettingScreen from "../screens/SettingScreen";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { useTheme } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createStackNavigator();
+
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
@@ -176,8 +181,9 @@ const Tabs = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileFunc}
+          component={ProfileStackScreen}
           options={{
+            tabBarLabel: "Profile",
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
@@ -225,13 +231,46 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-export default Tabs;
+const ProfileStackScreen = ({ navigation }) => {
+  const { colors } = useTheme();
 
-function ProfileFunc() {
   return (
-    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
-      <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} />
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          shadowColor: colors.background, // iOS
+          elevation: 0, // Android
+        },
+        headerTintColor: colors.text,
+      }}
+    >
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: "",
+          headerRight: () => (
+            <View style={{ marginRight: 10 }}>
+              <MaterialCommunityIcons.Button
+                name="account-edit"
+                size={25}
+                backgroundColor={colors.background}
+                color={colors.text}
+                onPress={() => navigation.navigate("EditProfile")}
+              />
+            </View>
+          ),
+        }}
+      />
+      <ProfileStack.Screen
+        name="EditProfile"
+        options={{
+          title: "Edit Profile",
+        }}
+        component={EditProfileScreen}
+      />
     </ProfileStack.Navigator>
   );
-}
+};
+export default Tabs;
