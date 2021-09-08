@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, SafeAreaView, StyleSheet, Platform } from "react-native";
+import { View, SafeAreaView, StyleSheet, Platform, Button } from "react-native";
 import {
   Avatar,
   Title,
@@ -10,6 +10,9 @@ import {
 import firebase from "firebase";
 //import database from "@react-native-firebase/database";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import auth from "@react-native-firebase/auth";
+import LoadingScreen from "./LoadingScreen";
+//import LoadingScreen from "./app/src/views/screens/LoadingScreen";
 
 class ProfileScreen extends Component {
   state = {
@@ -18,6 +21,8 @@ class ProfileScreen extends Component {
     mail: "",
     profilePicture: "",
     username: "@",
+    phoneNumber: "",
+    location: "",
   };
   componentDidMount() {
     this.getUserData();
@@ -35,8 +40,24 @@ class ProfileScreen extends Component {
           mail: snapshot.val().gmail,
           profilePicture: snapshot.val().profile_picture,
           username: snapshot.val().username,
+          phoneNumber: snapshot.val().phoneNumber,
+          location: snapshot.val().location,
         });
       });
+  };
+  onSignOut = () => {
+    // const onLogOut = navigation.getParam(onLogOut, null);
+    //const { signOut, toggleTheme } = React.useContext(AuthContext);
+
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("User signed out!");
+      });
+    //signOut();
+
+    //onLogOut();
   };
   render() {
     return (
@@ -45,11 +66,15 @@ class ProfileScreen extends Component {
           <View style={{ flexDirection: "row", marginTop: 15 }}>
             <Avatar.Image
               style={styles.Image}
-              source={{ uri: this.state.profilePicture }}
+              source={
+                this.state.profilePicture === ""
+                  ? require("../../assests/icons/profile.png")
+                  : { uri: this.state.profilePicture }
+              }
               size={80}
             />
 
-            <View style={{ marginStart: 15 }}>
+            <View style={{ marginLeft: 15 }}>
               <Title style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
                 {this.state.firstName + " " + this.state.lastName}
               </Title>
@@ -61,13 +86,13 @@ class ProfileScreen extends Component {
           <View style={styles.row}>
             <Icon name="map-marker-radius" color="#777777" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              Kolkata, India
+              {this.state.location}
             </Text>
           </View>
           <View style={styles.row}>
             <Icon name="phone" color="#777777" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              +91-900000009
+              {this.state.phoneNumber}
             </Text>
           </View>
           <View style={styles.row}>
@@ -76,6 +101,9 @@ class ProfileScreen extends Component {
               {this.state.mail}
             </Text>
           </View>
+        </View>
+        <View style={styles.menuItem}>
+          <Button title="sign out" onPress={() => this.onSignOut()}></Button>
         </View>
       </SafeAreaView>
     );
@@ -91,7 +119,7 @@ const styles = StyleSheet.create({
   droidSafeArea: {
     flex: 1,
     backgroundColor: "#f8f8ff",
-    paddingTop: Platform.OS === "android" ? 55 : 0,
+    paddingTop: Platform.OS === "android" ? 0 : 0,
   },
   userInfoSection: {
     paddingHorizontal: 30,

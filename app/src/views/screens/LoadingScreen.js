@@ -12,6 +12,7 @@ import firebase from "firebase";
 import { StackActions } from "@react-navigation/native";
 import HomeScreen from "./HomeScreen";
 import SignInScreen from "./SignInScreen";
+import "../../global.js";
 
 class LoadingScreen extends Component {
   state = {
@@ -19,19 +20,26 @@ class LoadingScreen extends Component {
     isLoading: true,
   };
   componentDidMount() {
+    global.isLoggedIn = false;
     this.checkIfLoggedIn(this.props.navigation);
   }
   checkIfLoggedIn = (navigation) => {
-    console.log("enter check log in");
+    console.log("enter check log in" + global.isLoggedIn);
     firebase.auth().onAuthStateChanged(
       function (user) {
         if (user) {
+          // global.isLoggedIn = true;
           this.setState({ isLoggedIn: true, isLoading: false });
         } else {
+          // global.isLoggedIn = true;
           this.setState({ isLoggedIn: false, isLoading: false });
         }
       }.bind(this)
     );
+  };
+  onLogOut = () => {
+    this.setState({ isLoggedIn: false, isLoading: false });
+    console.log("on log out..");
   };
   render() {
     if (this.state.isLoading) {
@@ -44,7 +52,7 @@ class LoadingScreen extends Component {
     }
     if (this.state.isLoggedIn) {
       console.log("home");
-      return <HomeScreen />;
+      return <HomeScreen onLogOut={this.onLogOut} />;
     } else {
       console.log("sign in");
       return <SignInScreen />;
